@@ -6,5 +6,5 @@ from user.models import User
 
 
 @admin.register(User)
-class ContactAdmin(admin.ModelAdmin):
-    pass
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('name', 'number', 'is_active')
