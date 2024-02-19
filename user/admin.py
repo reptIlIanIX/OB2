@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from django.contrib import admin
+
+from user.models import User
+
+
+@admin.register(User)
+class ContactAdmin(admin.ModelAdmin):
+    pass
