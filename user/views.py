@@ -1,5 +1,6 @@
 import stripe
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, TemplateView
 
@@ -13,11 +14,13 @@ class PreView(TemplateView):
     template_name = 'OB2/home.html'
 
 
+
+
 class UserCreateView(CreateView):
     model = User
-    fields = ('number',)
+    fields = ('number', 'password')
     template_name = 'OB2/auth_form.html'
-
+    success_url = reverse_lazy('preview')
 
 class SuccessView(TemplateView):
     template_name = 'OB2/success.html'
