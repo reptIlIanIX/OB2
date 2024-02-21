@@ -22,6 +22,7 @@ class UserCreateView(CreateView):
     template_name = 'OB2/auth_form.html'
     success_url = reverse_lazy('preview')
 
+
 class SuccessView(TemplateView):
     template_name = 'OB2/success.html'
 

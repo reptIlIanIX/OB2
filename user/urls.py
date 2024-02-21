@@ -7,7 +7,7 @@ urlpatterns = [path('', UserCreateView.as_view(), name='users'),
                # path('edit/<int:pk>', User),
                # path('delete<int:pk>', User),
                # path('update/<int:pk>', User),
-               path('create-checkout-session/<pk>', CreateCheckoutSessionView.as_view(), name='checkout'),
+               path('create-checkout-session/<pk>/', CreateCheckoutSessionView.as_view(), name='checkout'),
                path('success/', SuccessView.as_view(), name='success'),
                path('cancel/', CancelView.as_view(), name='cancel'),
                path('preview/', PreView.as_view(), name='preview')
