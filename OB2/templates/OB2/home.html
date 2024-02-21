@@ -17,7 +17,7 @@
       </div>
                 {% csrf_token %}
 
-      <form action="{% url 'checkout' user.pk %}" method="POST">
+      <form action="{% url 'user:checkout'%}" method="POST">
                           {% csrf_token %}
 
         <button type="submit" id="checkout-button">Checkout</button>

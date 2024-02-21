@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from OB2.settings import MEDIA_ROOT
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('blog/', include('blog.urls')),

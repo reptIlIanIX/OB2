@@ -20,7 +20,7 @@ class UserCreateView(CreateView):
     model = User
     fields = ('number', 'password')
     template_name = 'OB2/auth_form.html'
-    success_url = reverse_lazy('preview')
+    success_url = reverse_lazy('user:preview')
 
 
 class SuccessView(TemplateView):
@@ -33,8 +33,8 @@ class CancelView(TemplateView):
 
 class CreateCheckoutSessionView(View):
     def post(self, request, *args, **kwargs):
-        user_id = self.kwargs['pk']
-        user = User.objects.get(pk=user_id)
+        # user_id = self.kwargs['pk']
+        # user = User.objects.get(pk=user_id)
         YOUR_DOMAIN = 'http://127.0.0.1:8000'
         try:
             checkout_session = stripe.checkout.Session.create(
