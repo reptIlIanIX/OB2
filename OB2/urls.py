@@ -24,7 +24,7 @@ from OB2.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('blog/', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     path('', include('user.urls')),
               ] + static(settings.MEDIA_URL, document_root=MEDIA_ROOT)
 

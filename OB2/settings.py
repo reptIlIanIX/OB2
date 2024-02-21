@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OB2',
-    "phonenumber_field",
-    'phonenumbers',
     'payments',
+    "phonenumber_field",
+
     'user',
     'blog'
 ]
@@ -54,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'OB2.urls'
+
+
 
 TEMPLATES = [
     {
@@ -133,3 +135,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51Olb5fErirJAHiVXqxvLPqVCmqC0vPQYAjTbxA9eF0nWlHI3EleCm7tvjsrdFiu1F2CtInVlx3apWaVdoufAnSYc00vfMPWzax'
 STRIPE_SECRET_KEY = 'sk_test_51Olb5fErirJAHiVXN2FgkIv3cCHnU07L9LrRdsyzPlG7WcLr2N1kahP6dsb0Q83MUdsimNMpzq8LsxsVOx4Cv5yN00a2ohiFtf'
+
+AUTH_USER_MODEL = 'user.User'
+LOGIN_REDIRECT_URL = '/'

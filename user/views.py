@@ -1,10 +1,12 @@
 import stripe
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView
 
 from OB2 import settings
+from user.forms import RegisterForm
 from user.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -14,14 +16,11 @@ class PreView(TemplateView):
     template_name = 'OB2/home.html'
 
 
-
-
 class UserCreateView(CreateView):
     model = User
-    fields = ('number', 'password')
+    form_class = RegisterForm
     template_name = 'OB2/auth_form.html'
     success_url = reverse_lazy('user:preview')
-
 
 class SuccessView(TemplateView):
     template_name = 'OB2/success.html'

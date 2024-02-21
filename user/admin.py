@@ -9,4 +9,4 @@ from user.models import User
 admin.site.register(Blog)
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'number', 'is_active')
+    list_display = ('number', 'name', 'is_active')

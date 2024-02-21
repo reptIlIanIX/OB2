@@ -183,28 +183,20 @@
 
 <main class="form-signin w-100 m-auto">
 
-    <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
-    <div class="form-control-lg">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
-
-        </form>
-
-    </div>
         <div class="form-control-lg">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary w-100 py-2" type="submit">Создать блог</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 
-    <a href="{% url 'user:login' %}">
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p></p>
+            </form>
 
-        <a href="{% url 'blog:create_blog' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Создать блог без регистрации</button>
-        </a>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
+        </div>
+
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
