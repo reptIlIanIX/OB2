@@ -195,15 +195,29 @@
         </form>
 
     </div>
-        <div class="form-control-lg">
-
-    <a href="{% url 'user:login' %}">
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+    <div class="form-control-lg">
+        {% if user.is_authenticated %}
+            <a href="{% url 'user:logout' %}">
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign out</button>
             <p></p>
+        {% else %}
+            <a href="{% url 'user:login' %}">
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <p></p>
+        {% endif %}
 
-        <a href="{% url 'blog:create_blog' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Создать блог без регистрации</button>
-        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'blog:create_blog' %}">
+                <button class="btn btn-primary w-100 py-2" type="submit">Создать блог</button>
+            </a>
+
+        {% else %}
+            <a href="{% url 'blog:create_blog' %}">
+                <button class="btn btn-primary w-100 py-2" type="submit">Создать блог без регистрации</button>
+            </a>
+
+        {% endif %}
+
         <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"
