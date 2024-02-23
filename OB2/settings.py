@@ -36,9 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OB2',
-    'payments',
     "phonenumber_field",
-
     'user',
     'blog'
 ]
