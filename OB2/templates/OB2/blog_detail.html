@@ -140,7 +140,6 @@
 
     <!-- Example row of columns -->
     <div class="row">
-        {% for object in object_list %}
 
             <div class="col-6">
             <div class='card'>
@@ -161,14 +160,12 @@
                     </tr>
 
                 </table>
+                            <p><a class="btn btn-secondary" href="#" role="button">Edit &raquo;</a></p>
+
             </div>
-            <h2>{{ object.name }}</h2>
-            <p>{{ object.description }}</p>
 
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
 
-            </h3>
-        {% endfor %}
+
 
         </div>
 

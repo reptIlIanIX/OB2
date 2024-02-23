@@ -19,6 +19,7 @@ class BlogCreateView(CreateView):
 
         return super().form_valid(form)
 
+
 class BlogListView(ListView):
     model = Blog
     template_name = 'OB2/blog_list.html'

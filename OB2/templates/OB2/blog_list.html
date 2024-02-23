@@ -147,7 +147,7 @@
                 <h2>{{ object.name }}</h2>
                 <p>{{ object.description }}</p>
 
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="{% url 'blog:detail' object.pk %}" role="button">View details &raquo;</a></p>
 
             </div>
         {% endfor %}
