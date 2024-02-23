@@ -26,4 +26,4 @@ class BlogListView(ListView):
 
 class BlogDetailView(DetailView):
     model = Blog
-
+    template_name = 'OB2/blog_detail.html'
