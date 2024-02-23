@@ -3,10 +3,10 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 
 from OB2 import settings
-from user.forms import RegisterForm
+from user.forms import RegisterForm, UserUpdateForm
 from user.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -22,8 +22,20 @@ class UserCreateView(CreateView):
     template_name = 'OB2/auth_form.html'
     success_url = reverse_lazy('user:preview')
 
+
+class ProfileView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'OB2/update.html'
+    success_url = reverse_lazy('user:create')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
 class SuccessView(TemplateView):
     template_name = 'OB2/success.html'
+    success_url = reverse_lazy('blog:create_blog')
 
 
 class CancelView(TemplateView):

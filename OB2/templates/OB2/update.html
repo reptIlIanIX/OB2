@@ -183,54 +183,20 @@
 
 <main class="form-signin w-100 m-auto">
 
-    <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Update the profile</h1>
 
-    <div class="form-control-lg">
-        {% if not user.is_authenticated %}
-
+        <div class="form-control-lg">
             <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
-        {% endif %}
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary w-100 py-2" type="submit">Update</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 
-        </form>
+            </form>
 
-    </div>
-    <div class="form-control-lg">
-        {% if user.is_authenticated %}
-            <a href="{% url 'user:logout' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign out</button>
-            <p></p>
+        </div>
 
-            <a href="{% url 'user:profile' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Update</button>
-            <p></p>
-        {% else %}
-            <a href="{% url 'user:login' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p></p>
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            <a href="{% url 'blog:create_blog' %}">
-                <button class="btn btn-primary w-100 py-2" type="submit">Create blog</button>
-            </a>
-            <p></p>
-
-            <a href="{% url 'blog:list' %}">
-                <button class="btn btn-primary w-100 py-2" type="submit">See your blogs</button>
-            </a>
-
-        {% else %}
-            <a href="{% url 'blog:create_blog' %}">
-                <button class="btn btn-primary w-100 py-2" type="submit">Создать блог без регистрации</button>
-            </a>
-
-        {% endif %}
-
-        <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
