@@ -1,5 +1,4 @@
 import stripe
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -33,6 +32,10 @@ class ProfileView(UpdateView):
         return self.request.user
 
 
+def denied(request):
+    return render(request, 'OB2/Denied.html')
+
+
 class SuccessView(TemplateView):
     template_name = 'OB2/success.html'
     success_url = reverse_lazy('blog:create_blog')
@@ -52,7 +55,7 @@ class CreateCheckoutSessionView(View):
                 line_items=[
                     {
                         # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                        'price': 'price_1Olb7SErirJAHiVXsiaCqWNC',
+                        'price': 'price_1Olb7SErrJAHiVXsiaCqWNC',
                         'quantity': 1,
                     },
                 ],

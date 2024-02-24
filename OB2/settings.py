@@ -53,8 +53,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'OB2.urls'
 
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -137,3 +135,4 @@ STRIPE_SECRET_KEY = 'sk_test_51Olb5fErirJAHiVXN2FgkIv3cCHnU07L9LrRdsyzPlG7WcLr2N
 AUTH_USER_MODEL = 'user.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/denied/'
