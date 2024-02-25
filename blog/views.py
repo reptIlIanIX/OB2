@@ -9,12 +9,14 @@ from blog.models import Blog
 
 # Create your views here.
 class BlogCreateView(CreateView):
+    '''Для создания блога'''
     model = Blog
     fields = ('name', 'description', 'image')
     template_name = 'OB2/create_blog.html'
     success_url = reverse_lazy("user:create")
 
     def form_valid(self, form):
+        '''сохраняет user как owner после создания блога (присваивание id)'''
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
@@ -23,22 +25,26 @@ class BlogCreateView(CreateView):
 
 
 class BlogListView(ListView):
+    '''список блогов'''
     model = Blog
     template_name = 'OB2/blog_list.html'
 
 
 class BlogDetailView(DetailView):
+    '''подробно посмотреть блог'''
     model = Blog
     template_name = 'OB2/blog_detail.html'
 
 
 class BlogUpdateView(LoginRequiredMixin, UpdateView):
+    '''обновление блога после создания'''
     model = Blog
     fields = ('name', 'description', 'image')
     template_name = 'OB2/create_blog.html'
     success_url = reverse_lazy("user:create")
 
     def get_object(self, queryset=None):
+        """обновлять блог может только создатель"""
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user:
             raise Http404
@@ -46,11 +52,14 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class BlogDeleteView(LoginRequiredMixin, DeleteView):
+    ''''удаление блога '''
     model = Blog
     template_name = 'OB2/delete_blog.html'
     success_url = reverse_lazy('blog:list')
 
     def get_object(self, queryset=None):
+        """удалить блог может только создатель"""
+
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user:
             raise Http404
