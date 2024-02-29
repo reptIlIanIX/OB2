@@ -1,10 +1,11 @@
 import stripe
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView, UpdateView
 
 from OB2 import settings
+from blog.models import Blog
 from user.forms import RegisterForm, UserUpdateForm
 from user.models import User
 
@@ -44,7 +45,8 @@ def denied(request):
 
 
 class SuccessView(TemplateView):
-    """вьюшка с темплейтом при успехе оплаты на stripe(success_url думал как редирект сработает)"""
+    """вьюшка с темплейтом при успехе оплаты на
+    stripe(success_url думал как редирект сработает)"""
 
     template_name = 'OB2/success.html'
     success_url = reverse_lazy('blog:create_blog')
@@ -57,6 +59,7 @@ class CancelView(TemplateView):
 
 class CreateCheckoutSessionView(View):
     '''создание сессии Stripe'''
+
     def post(self, request, *args, **kwargs):
         # user_id = self.kwargs['pk']
         # user = User.objects.get(pk=user_id)
@@ -65,7 +68,9 @@ class CreateCheckoutSessionView(View):
             checkout_session = stripe.checkout.Session.create(
                 line_items=[
                     {
-                        # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                        # Provide the exact Price ID
+                        # (for example, pr_1234)
+                        # of the product you want to sell
                         'price': 'price_1Olb7SErrJAHiVXsiaCqWNC',
                         'quantity': 1,
                     },
@@ -78,3 +83,10 @@ class CreateCheckoutSessionView(View):
             return str(e)
 
         return redirect(checkout_session.url, code=303)
+
+
+def subscriped(request):
+    user = get_object_or_404(Blog, pk=request.GET.get('blog_id'))
+    not user.is_subscribed = user.is_subscribed
+    user.save()
+    return redirect('user:create')

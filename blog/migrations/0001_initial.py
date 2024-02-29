@@ -14,10 +14,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Blog',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=15, verbose_name='название')),
-                ('description', models.TextField(max_length=50, verbose_name='описание')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='', verbose_name='картинка')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=15,
+                                          verbose_name='название')),
+                ('description', models.TextField(max_length=50,
+                                                 verbose_name='описание')),
+                ('image', models.ImageField(blank=True, null=True,
+                                            upload_to='', verbose_name='картинка')),
             ],
             options={
                 'verbose_name': 'блог',

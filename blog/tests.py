@@ -7,8 +7,10 @@ from blog.models import Blog
 class TestBlog(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Blog.objects.create(name='Big', description='Very good description')
-        Blog.objects.create(name='Small', description='Not so good description')
+        Blog.objects.create(name='Big',
+                            description='Very good description')
+        Blog.objects.create(name='Small',
+                            description='Not so good description')
 
     def test_description(self):
         big = Blog.objects.get(name="Big")

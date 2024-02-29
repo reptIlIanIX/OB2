@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, request
-from django.shortcuts import render
+from django.http import Http404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import (CreateView, ListView,
+                                  DetailView, UpdateView, DeleteView)
 
 from blog.models import Blog
 

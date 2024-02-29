@@ -201,16 +201,16 @@
     <div class="form-control-lg">
         {% if user.is_authenticated %}
             <a href="{% url 'user:logout' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign out</button>
+                <button class="btn btn-primary w-100 py-2" type="submit">Sign out</button>
                 <p></p></a>
 
             <a href="{% url 'user:profile' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Update profile</button>
-            <p></p></a>
+                <button class="btn btn-primary w-100 py-2" type="submit">Update profile</button>
+                <p></p></a>
         {% else %}
             <a href="{% url 'user:login' %}">
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p></p></a>
+                <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                <p></p></a>
         {% endif %}
 
         {% if user.is_authenticated %}
@@ -234,6 +234,16 @@
             </a>
 
         {% endif %}
+        {% if not blog.is_subscribed %}
+            <a href="{% url 'user:checkout' %}">
+                <button class="btn btn-primary w-100 py-2" type="submit">Купить подписку</button>
+            </a>
+        {% else %}
+                        <p>У вас есть подписка</p>
+
+
+        {% endif %}
+
 
         <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 </main>

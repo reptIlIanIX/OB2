@@ -9,7 +9,7 @@ services:
   db:
     image: postgres
     env_file:
-      - .env.sample
+      - .env
     volumes:
       - pg_data:/var/lib/postgresql/data/
     ports:
