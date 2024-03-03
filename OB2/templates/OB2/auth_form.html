@@ -234,12 +234,17 @@
             </a>
 
         {% endif %}
-        {% if not blog.is_subscribed %}
-            <a href="{% url 'user:checkout' %}">
+        {% if not user.is_subscribed and user.is_authenticated%}
+                        <p></p>
+            <a href="{% url 'user:preview' %}">
                 <button class="btn btn-primary w-100 py-2" type="submit">Купить подписку</button>
             </a>
-        {% else %}
-                        <p>У вас есть подписка</p>
+        {% elif not user.is_authenticated %}
+            <p>Вы не авторизованы</p>
+
+        {% elif user.is_authenticated and user.is_subscribed %}
+            <p>У вас есть подписка</p>
+
 
 
         {% endif %}

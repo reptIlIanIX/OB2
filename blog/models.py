@@ -14,7 +14,7 @@ class Blog(models.Model):
                               on_delete=models.SET_NULL,
                               **NULLABLE, verbose_name='владелец')
     is_paid = models.BooleanField(default=False,
-                                        verbose_name='подписан')
+                                  verbose_name='подписан')
 
     def __str__(self):
         return f'{self.name} - {self.description}'

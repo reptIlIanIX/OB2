@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - pg_data:/var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data/pgdata
     ports:
       - '5432:5432'
     healthcheck:
@@ -23,7 +23,7 @@ services:
   app:
     build: .
     env_file:
-      - .env.sample
+      - .env
     tty: true
     command:  bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
@@ -33,3 +33,5 @@ services:
     depends_on:
       db:
         condition: service_healthy
+volumes:
+  pg_data:

@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_NAME'),
         'USER': os.getenv('POSTGRES_USER'),
         "PASSWORD": os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST')
+        'HOST': os.getenv('POSTGRES_HOST'),
     }
 }
 
@@ -135,8 +135,10 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51Olb5fErirJAHiVXqxvLPqVCmqC0vPQYAjTbxA9eF0nWlHI3EleCm7tvjsrdFiu1F2CtInVlx3apWaVdoufAnSYc00vfMPWzax'
-STRIPE_SECRET_KEY = 'sk_test_51Olb5fErirJAHiVXN2FgkIv3cCHnU07L9LrRdsyzPlG7WcLr2N1kahP6dsb0Q83MUdsimNMpzq8LsxsVOx4Cv5yN00a2ohiFtf'
+STRIPE_PUBLISHABLE_KEY = str(os.getenv('STRIPE_PUBLISHABLE_KEY'))
+STRIPE_SECRET_KEY = str(os.getenv('STRIPE_SECRET_KEY'))
+STRIPE_ENDPOINT_SECRET = str(os.getenv('STRIPE_ENDPOINT_SECRET'))
+
 
 AUTH_USER_MODEL = 'user.User'
 LOGIN_REDIRECT_URL = '/'

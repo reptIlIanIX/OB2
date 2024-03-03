@@ -1,11 +1,12 @@
 import stripe
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, TemplateView, UpdateView
 
 from OB2 import settings
-from blog.models import Blog
 from user.forms import RegisterForm, UserUpdateForm
 from user.models import User
 
@@ -24,7 +25,7 @@ class UserCreateView(CreateView):
     model = User
     form_class = RegisterForm
     template_name = 'OB2/auth_form.html'
-    success_url = reverse_lazy('user:preview')
+    success_url = reverse_lazy('user:create')
 
 
 class ProfileView(UpdateView):
@@ -71,7 +72,7 @@ class CreateCheckoutSessionView(View):
                         # Provide the exact Price ID
                         # (for example, pr_1234)
                         # of the product you want to sell
-                        'price': 'price_1Olb7SErrJAHiVXsiaCqWNC',
+                        'price': 'price_1Olb7SErirJAHiVXsiaCqWNC',
                         'quantity': 1,
                     },
                 ],
@@ -85,8 +86,35 @@ class CreateCheckoutSessionView(View):
         return redirect(checkout_session.url, code=303)
 
 
-def subscriped(request):
-    user = get_object_or_404(Blog, pk=request.GET.get('blog_id'))
-    not user.is_subscribed = user.is_subscribed
-    user.save()
-    return redirect('user:create')
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        print("Payment was successful.")
+        # TODO: run some custom code here
+
+    return HttpResponse(status=200)

@@ -9,14 +9,15 @@ from blog.models import Blog
 
 # Create your views here.
 class BlogCreateView(CreateView):
-    '''Для создания блога'''
+    """Для создания блога"""
     model = Blog
-    fields = ('name', 'description', 'image')
+    fields = ('name', 'description', 'image', 'is_paid')
     template_name = 'OB2/create_blog.html'
     success_url = reverse_lazy("user:create")
 
     def form_valid(self, form):
-        '''сохраняет user как owner после создания блога (присваивание id)'''
+        """сохраняет user как owner после создания
+        блога (присваивание id)"""
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
@@ -25,19 +26,19 @@ class BlogCreateView(CreateView):
 
 
 class BlogListView(ListView):
-    '''список блогов'''
+    """список блогов"""
     model = Blog
     template_name = 'OB2/blog_list.html'
 
 
 class BlogDetailView(DetailView):
-    '''подробно посмотреть блог'''
+    """подробно посмотреть блог"""
     model = Blog
     template_name = 'OB2/blog_detail.html'
 
 
 class BlogUpdateView(LoginRequiredMixin, UpdateView):
-    '''обновление блога после создания'''
+    """обновление блога после создания"""
     model = Blog
     fields = ('name', 'description', 'image')
     template_name = 'OB2/create_blog.html'
@@ -52,7 +53,7 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class BlogDeleteView(LoginRequiredMixin, DeleteView):
-    ''''удаление блога '''
+    """'удаление блога """
     model = Blog
     template_name = 'OB2/delete_blog.html'
     success_url = reverse_lazy('blog:list')
