@@ -7,6 +7,7 @@ NULLABLE = {'blank': True, 'null': True}
 class User(AbstractUser):
     username = models.CharField(max_length=30,
                                 verbose_name='ник', **NULLABLE)
+    email = models.EmailField(verbose_name='почта')
     number = models.CharField(max_length=13,
                               verbose_name='телефон', unique=True)
     is_subscribed = models.BooleanField(default=False,

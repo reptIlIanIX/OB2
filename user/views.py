@@ -6,6 +6,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, TemplateView, UpdateView
 
+import user
 from OB2 import settings
 from user.forms import RegisterForm, UserUpdateForm
 from user.models import User
@@ -62,8 +63,6 @@ class CreateCheckoutSessionView(View):
     '''создание сессии Stripe'''
 
     def post(self, request, *args, **kwargs):
-        # user_id = self.kwargs['pk']
-        # user = User.objects.get(pk=user_id)
         YOUR_DOMAIN = 'http://127.0.0.1:8000'
         try:
             checkout_session = stripe.checkout.Session.create(
@@ -77,12 +76,13 @@ class CreateCheckoutSessionView(View):
                     },
                 ],
                 mode='payment',
+                client_reference_id=request.user.id if request.user.is_authenticated else None,
                 success_url=YOUR_DOMAIN + '/success/',
                 cancel_url=YOUR_DOMAIN + '/cancel/',
             )
         except Exception as e:
             return str(e)
-
+        print(checkout_session.request)
         return redirect(checkout_session.url, code=303)
 
 
