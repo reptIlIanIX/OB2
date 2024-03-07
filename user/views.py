@@ -124,8 +124,7 @@ def stripe_webhook(request):
         email_user = User.objects.get(email=customer_email)
         email_user.is_subscribed = True
         email_user.save()
-        print(email_user)
-        print(customer_email)
+
         print("Payment was successful.")
     # TODO: run some custom code here
 
