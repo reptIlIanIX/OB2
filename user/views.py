@@ -76,13 +76,13 @@ class CreateCheckoutSessionView(View):
                     },
                 ],
                 mode='payment',
+
                 client_reference_id=request.user.id if request.user.is_authenticated else None,
                 success_url=YOUR_DOMAIN + '/success/',
                 cancel_url=YOUR_DOMAIN + '/cancel/',
             )
         except Exception as e:
             return str(e)
-        print(checkout_session.request)
         return redirect(checkout_session.url, code=303)
 
 
@@ -114,7 +114,19 @@ def stripe_webhook(request):
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
+        # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
+        session = stripe.checkout.Session.retrieve(
+            event['data']['object']['id'],
+            expand=['line_items'],
+        )
+        session = event["data"]["object"]
+        customer_email = session["customer_details"]["email"]
+        email_user = User.objects.get(email=customer_email)
+        email_user.is_subscribed = True
+        email_user.save()
+        print(email_user)
+        print(customer_email)
         print("Payment was successful.")
-        # TODO: run some custom code here
+    # TODO: run some custom code here
 
     return HttpResponse(status=200)
