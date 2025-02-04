@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Signin Template · Bootstrap v5.3</title>
+    <title>Blogs and Subscriptions</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
@@ -182,13 +182,18 @@
 
 
 <main class="form-signin w-100 m-auto">
-
-    <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+    <a href="{% url 'user:create' %}">
+        <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
+    </a>
+    {% if not user.is_authenticated %}
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+    {% else %}
+        <h1 class="h3 mb-3 fw-normal">Welcome</h1>
+        
+    {% endif %}
 
     <div class="form-control-lg">
         {% if not user.is_authenticated %}
-
             <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -223,19 +228,9 @@
                 <button class="btn btn-primary w-100 py-2" type="submit">See blogs</button>
             </a>
 
-        {% else %}
-            <a href="{% url 'blog:create_blog' %}">
-                <button class="btn btn-primary w-100 py-2" type="submit">Create blog with no registration</button>
-            </a>
-            <p></p>
-
-            <a href="{% url 'blog:list' %}">
-                <button class="btn btn-primary w-100 py-2" type="submit">See blogs</button>
-            </a>
-
         {% endif %}
-        {% if not user.is_subscribed and user.is_authenticated%}
-                        <p></p>
+        {% if not user.is_subscribed and user.is_authenticated %}
+            <p></p>
             <a href="{% url 'user:preview' %}">
                 <button class="btn btn-primary w-100 py-2" type="submit">Купить подписку</button>
             </a>
@@ -251,6 +246,7 @@
 
 
         <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
+    </div>
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

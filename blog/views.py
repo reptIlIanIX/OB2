@@ -1,8 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseNotAllowed, HttpResponse, HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, ListView,
                                   DetailView, UpdateView, DeleteView)
+from dns.rdtypes.IN.HTTPS import HTTPS
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.status import HTTP_401_UNAUTHORIZED
+from starlette.status import HTTP_403_FORBIDDEN
 
 from blog.models import Blog
 
@@ -11,7 +15,7 @@ from blog.models import Blog
 class BlogCreateView(CreateView):
     """Для создания блога"""
     model = Blog
-    fields = ('name', 'description', 'image', 'is_paid')
+    fields = ('name', 'description', 'image')
     template_name = 'OB2/create_blog.html'
     success_url = reverse_lazy("user:create")
 
@@ -37,18 +41,21 @@ class BlogDetailView(DetailView):
     template_name = 'OB2/blog_detail.html'
 
 
+not_authorized = HttpResponseNotAllowed("Not allowed")
+
+
 class BlogUpdateView(LoginRequiredMixin, UpdateView):
     """обновление блога после создания"""
     model = Blog
     fields = ('name', 'description', 'image')
-    template_name = 'OB2/create_blog.html'
+    template_name = 'OB2/update_blog.html'
     success_url = reverse_lazy("user:create")
 
     def get_object(self, queryset=None):
         """обновлять блог может только создатель"""
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user:
-            raise Http404
+            raise PermissionDenied
         return self.object
 
 
@@ -63,5 +70,5 @@ class BlogDeleteView(LoginRequiredMixin, DeleteView):
 
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user:
-            raise Http404
+            raise PermissionDenied
         return self.object

@@ -182,22 +182,20 @@
 
 
 <main class="form-signin w-100 m-auto">
-    <a href="{% url 'user:create' %}">
 
         <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
-    </a>
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Make your blog</h1>
 
-    <div class="form-control-lg">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
+        <div class="form-control-lg">
+            <form method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary w-100 py-2" type="submit">Изменить блог</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; {% now 'Y' %}</p>
 
-        </form>
+            </form>
 
-    </div>
+        </div>
 
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"

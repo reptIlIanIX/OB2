@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Signin Template · Bootstrap v5.3</title>
+    <title>Blog</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
@@ -130,8 +130,9 @@
 
 
 <main class="form-check">
-
-    <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
+    <a href="{% url 'user:create' %}">
+        <img class="mb-4" src="{% static "img/bootstrap-logo.svg" %}" alt="" width="72" height="57">
+    </a>
     <h1 class="h3 mb-3 fw-normal">Your blogs</h1>
 
 </main>
@@ -150,9 +151,8 @@
                 </div>
                 <div class='card-body'>
                     <table class='table'>
-                            <img src="/media/{{ object.image }}" alt="Нет фото" width="450" height="400">
-
-
+                        <img src="/media/{{ object.image }}" alt="Нет фото" width="300" height="300">
+                    
                         <tr>
                             <td>Name</td>
                             <td>{{ object.name }}</td>
@@ -162,7 +162,15 @@
                             <td>Description</td>
                             <td>{{ object.description }}</td>
                         </tr>
-
+                        <tr>
+                            <td>Owner</td>
+                            <td>{{ object.owner }}</td>
+                        </tr>
+                        {% if object.owner.is_subscribed %}
+                            <p>Подписан: &#10003; </p>
+                        {% else %}
+                            <p>Подписан:&#10008; </p>
+                        {% endif %}
                     </table>
                     <p><a class="btn btn-secondary" href="{% url 'blog:update' object.pk %}" role="button">Edit
                         &raquo;</a></p>

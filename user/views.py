@@ -1,5 +1,4 @@
 import stripe
-import json
 from PIL.features import check
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
@@ -9,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, TemplateView, UpdateView
 import logging
 
-from flask import Flask, jsonify
 from rest_framework import request
 
 import user
@@ -139,5 +137,4 @@ def stripe_webhook_view(request):
         print('Unhandled event type {}'.format(event['type']))
 
     return HttpResponse(status=200)
-
 
