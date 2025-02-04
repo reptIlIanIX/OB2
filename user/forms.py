@@ -8,7 +8,7 @@ class RegisterForm(UserCreationForm):
     # Наследуемся от специальной формы UserCreationForm из модуля auth
     class Meta:
         model = User
-        fields = ('number', 'password1', 'password2')
+        fields = ('email', 'password1', 'password2')
 
 
 class UserUpdateForm(UserChangeForm):

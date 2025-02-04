@@ -41,9 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OB2',
-    "phonenumber_field",
     'user',
-    'blog'
+    'blog',
 ]
 
 MIDDLEWARE = [

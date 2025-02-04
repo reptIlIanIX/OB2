@@ -20,6 +20,6 @@ urlpatterns = [path('', UserCreateView.as_view(), name='create'),
                path('profile/', ProfileView.as_view(), name='profile'),
                path('denied/', views.denied, name='denied'),
                path('config/', views.stripe_config),
-               path('webhook/', views.stripe_webhook),  # new
+               path('webhook/', views.stripe_webhook_view),  # new
 
                ]
