@@ -2,6 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from user.models import User
+import os
+import django
+
 
 
 class TestUser(TestCase):
@@ -10,10 +13,10 @@ class TestUser(TestCase):
     def setUp(self):
         # Создание двух пользователей
         self.user = User.objects.create(
-            number='+79160889803',
+            email='oleg@mail.ru',
             is_active=True
         )
-        self.user.set_password('12345678')
+        self.user.set_password('Layne3382')
         self.user.save()
 
     def test_redirect_if_not_logged_in(self):
